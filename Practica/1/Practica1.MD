@@ -49,3 +49,18 @@ Soluciones Double: 2.00032      1.99968
 
 > c - El cambio esta en que al definir las variables ahora para los numeros flotantes se pone 1.0f en vez de 1.0, esto hace que el float tarde muchisimo menos que en el ejercicio B. Ya que el numero 1.0 es una representacion de double que utiliza 64 bits y al agregarle la f, utilizamos la representacion de 32bits
 > StackOverflow: The number 3.0 is the literal representation of a double value (it's equivalent to 3.0d), whereas 3.0f is a float value. The different precisions explain why you're getting different results - a double is stored using 64-bits, a float uses 32-bits.
+
+7 - iterstruc1 / interstruc2
+> El cambio de codigo es de un for y un while.
+> El for es mas rapido porque tiene ya el indice de antes y sabe cuantas iteracciones tiene que dar, en cambio el while tiene que analizar la condicion. Aunque el tiempo no tiene un cambio muy significativo (?)
+./iterstruc1.out 1000
+Incializando matrices...
+Calculando For...
+ Tiempo For en segundos 3.344360 
+
+./iterstruc2.out 1000
+Incializando matrices...
+Calculando While...
+Tiempo While en segundos 3.354049 
+
+
