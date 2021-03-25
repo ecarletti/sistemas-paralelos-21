@@ -28,7 +28,7 @@ Con potencias de 2, el tiempo decrementa en todos los casos.
 
 4 - instrucciones2.c
 
->  Como se explico en el punto anterior, en instrucciones2.c se busca el mismo resultado ya que 1000 / 5 y 1000 * 0.2 es 200, pero se llega de una forma mas rapida usando la multiplicacion.
+>  Como se explico en el punto anterior, en instrucciones2.c se busca el mismo resultado ya que 1000 / 5 y 1000 * 0.2 es 200, pero se llega de una forma mas rapida usando la multiplicacion. Mientras no sean potencias de 2, la división será mas lenta de la multiplicación.
 
 5 - matrices.c
 
@@ -58,9 +58,21 @@ Incializando matrices...
 Calculando For...
  Tiempo For en segundos 3.344360 
 
-./iterstruc2.out 1000
+>./iterstruc2.out 1000
 Incializando matrices...
 Calculando While...
 Tiempo While en segundos 3.354049 
 
 
+8 - matrices.c
+>Hay dos cuestiones simples a optimizar en cuanto al código. La primera es respecto del acceso a los valores en las matrices. En el codigo se accede a los datos de la matriz por fila. Cuando se cambia esta configuracion establecida mediante macros, accediendo por columnas, el tiempo de ejecucion es menor. Luego, se puede optimizar el uso del stack. Por cada llamado a una función se carga las referencias necesarias en el stack, así como los parametros enviados. Esto podría optimizarse minimamente mediante el uso de funciones inline, pero en este caso quedaría a elección del compilador evaluar si la función pasa a ser efectivamente inline o no. Al mismo tiempo esto se podría forzar mediante extensiones del compilador, pero no va al caso. La solucion mas simple es evitar el llamado a estas funciones cambiando el codigo donde estas rutinas son llamadas por el codigo correspondiente sin el llamado.
+
+> Modificado en matricesM.c
+
+
+10 - triangular.c
+>"triangular.c" tarda 52 segundos para una matriz cuadrada de orden 2048.
+"triangularM.c" tarda 32 segundos para una matriz de igual orden.
+El código optimizado realiza la multiplicación de "atrás hacia adelante".
+Recorre primero BT, mientras no encuentre un 0 realizar la multiplicación con A y sumar a un total. Esto es válido porque BT es una matriz triangular inferior; si fuera triangular superior: recorrer normal y parar cuando se encuentre un 0.
+Además, la disposición del acceso a las matrices permite un mejor uso de la localidad de las referencias en caché, ahorrando accesos innecesarios.
